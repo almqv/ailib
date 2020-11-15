@@ -63,7 +63,7 @@ class neural_network:
         #try:
             self.debug( f"Thinking: {inp}..." )
             maxLayer = len(self.neuronDimensions) - 1
-            weightedLayer = np.dot( inp, self.weights[layerIndex] )
+            weightedLayer = np.dot( inp, self.weights[layerIndex] ) # FIXME: Matrix dimensions not aligned somehow.
             outputLayer = func.sigmoid( np.add(weightedLayer, self.bias[layerIndex]) )
 
             if( layerIndex < maxLayer ):
