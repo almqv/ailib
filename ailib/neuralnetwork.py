@@ -8,11 +8,11 @@ class neural_network:
         self.layers = layers
         self.enableDebug = enableDebug
 
-        self.debug( f"Created neural network {self}" )
+        self.debug( f"Created neural network {self}", db.level.success )
 
     def debug( self, text:str, lvl: str=db.level.info ):
         if( self.enableDebug ):
             db.debug( text, lvl )
 
-    def generateLayers( self, layerDimensions: list=[ (1,1), (1,1) ] ):
-        print("New layers")
+    def generateLayers( self, neuronDimensions: list=[ 1, 1 ] ):
+        self.debug( f"Generating layers {neuronDimensions}" )

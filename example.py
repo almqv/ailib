@@ -6,3 +6,4 @@
 from ailib import ai
 
 test = ai.neural_network() # Create a new instace of a network
+test.generateLayers( [2, 2] ) # 2 input neurons and 2 output neurons
