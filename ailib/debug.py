@@ -10,5 +10,5 @@ class level:
     fail = BOLD + "\033[91m[FAIL]" + ENDC
 
 
-def debug( text:str, lvl: str=level.info, indent: int=0):
-    print( INDENT*indent + lvl + " " + text )
+def debug( text:str, lvl: str=level.info, indent: int=0, end: str="\n"):
+    print( INDENT*indent + lvl + " " + text, end=end )

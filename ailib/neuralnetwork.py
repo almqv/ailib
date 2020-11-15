@@ -12,9 +12,9 @@ class neural_network:
 
         self.debug( f"Created neural network {self}", db.level.success )
 
-    def debug( self, text:str, lvl: str=db.level.info, indent: int=0 ):
+    def debug( self, text:str, lvl: str=db.level.info, indent: int=0, end: str="\n" ):
         if( self.enableDebug ): # Only debug when it is enabled
-            db.debug( text, lvl, indent )
+            db.debug( text, lvl, indent, end )
 
     def generateLayers( self, neuronDimensions: list=[ 1, 1 ], offset: float=-0.25 ):
         # The neuronDimensions are the dimensions of the neurons. Each index is a layer and that
@@ -28,8 +28,11 @@ class neural_network:
         self.weights = []
 
         for index, neuronCount in enumerate(neuronDimensions):
-            self.debug( f"{index} : {neuronCount}", indent=2 )
-            if( index + 1 < len(neuronDimensions) - 1 ):
-                self.weights[index] = np.random.rand( neuronCount, neuronDimensions[index+1] )
+            if( index > 0 ):
+                self.debug( f"{index} : {neuronCount}", indent=2 )
 
-        self.debug( f"Generated weights: {self.weights}", indent=1 )
+                self.weights[index] = np.random.rand( neuronDimensions[index-1], neuronCount )
+
+            self.debug( f"Weights {self.weights}", indent=2, end="\r" )
+
+        self.debug( f"\nGenerated weights: {self.weights}", indent=1 )
