@@ -1,6 +1,7 @@
 ENDC = "\033[0m"
 BOLD = "\033[1m"
 UNDERLINE = "\033[4m"
+INDENT = "\t"
 
 class level:
     info = "\033[94m[DEBUG]" + ENDC
@@ -9,5 +10,5 @@ class level:
     fail = BOLD + "\033[91m[FAIL]" + ENDC
 
 
-def debug( text:str, lvl: str=level.info, prefix: str="", surfix: str="" ):
-    print( prefix + lvl + " " + text + surfix )
+def debug( text:str, lvl: str=level.info, indent: int=0):
+    print( INDENT*indent + lvl + " " + text )
