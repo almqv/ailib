@@ -50,7 +50,15 @@ class neural_network:
 
             self.debug( f"Generated bias matrix: {self.bias}", db.level.success, indent=1 )
 
+        except:
+            self.debug( f"{sys.exc_info()}", db.level.fail )
+
+    def loadLayers( self, savefile:str ): # TODO: Load weights and biases from files
+        self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
+
+    def think( self, inp:np.array ):
+        try:
+            self.debug( f"Thinking: {inp}..." )
 
         except:
-            err = sys.exc_info()
-            self.debug( f"{err}", db.level.fail )
+            print("ohno")

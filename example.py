@@ -3,6 +3,7 @@
 # This is a example on how to use this library.
 # It is also a "testing" file.
 
+import numpy as np
 from ailib import ai
 
 test = ai.neural_network() # Create a new instace of a network
@@ -15,3 +16,6 @@ test.generateLayers( [2, 4, 2] )
 #   I   N   O
 #   I   N   O
 #       N
+
+
+test.think( np.asarray([1, 0.2]) )
