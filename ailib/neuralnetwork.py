@@ -29,9 +29,7 @@ class neural_network:
 
         for index, neuronCount in enumerate(neuronDimensions):
             self.debug( f"{index} : {neuronCount}", indent=2 )
-            check = index + 1 < len(neuronDimensions) - 1
-            print(check)
-            if( check ):
+            if( index + 1 < len(neuronDimensions) - 1 ):
                 self.weights[index] = np.random.rand( neuronCount, neuronDimensions[index+1] )
 
         self.debug( f"Generated weights: {self.weights}", indent=1 )
