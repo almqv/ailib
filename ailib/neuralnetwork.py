@@ -26,14 +26,23 @@ class neural_network:
         try:
             self.debug( f"Generating layers {neuronDimensions}" )
 
+            # Generate the weight matrix
             self.debug( "Generating weight matrix", indent=1 )
             self.weights = [None] * (len(neuronDimensions) - 1)
 
             for index, neuronCount in enumerate(neuronDimensions): # Iterate through each layer and append the weights
                 if( index > 0 ):
                     self.weights[index - 1] = np.random.rand( neuronDimensions[index-1], neuronCount ) + offset
-
             self.debug( f"Generated weights: {self.weights}", indent=1 )
+
+            # Generate the bias matrix
+            self.debug( "Generating bias matrix", indent=1 )
+            self.bias = [None] * (len(neuronDimensions) - 1)
+
+            for index, neuronCount in enumerate(neuronDimensions):
+                if(index > 0):
+                    self.bias[index - 1] = np.random.rand( 1, neuronCount ) + offset
+
 
         except:
             err = sys.exc_info()
