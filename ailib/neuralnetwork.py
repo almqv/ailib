@@ -3,6 +3,7 @@ import numpy as np
 from copy import deepcopy as copy
 
 import ailib.debug as db
+import ailib.func as func
 
 
 class neural_network:
@@ -25,6 +26,8 @@ class neural_network:
         # The offset is what is added to each weight/bias when randomizing them
 
         try:
+            self.neuronDimensions = neuronDimensions
+
             self.debug( f"Generating layers {neuronDimensions}" )
             layersLen = len(neuronDimensions)
             layerProp = [None] * (layersLen - 1)
@@ -56,9 +59,17 @@ class neural_network:
     def loadLayers( self, savefile:str ): # TODO: Load weights and biases from files
         self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
 
-    def think( self, inp:np.array ):
-        try:
+    def think( self, inp:np.array, layerIndex:int = 0, outputLayer:np.array = None ):
+        #try:
             self.debug( f"Thinking: {inp}..." )
+            maxLayer = len(self.neuronDimensions) - 1
+            weightedLayer = np.dot( inp, self.weights[layerIndex] )
+            outputLayer = func.sigmoid( np.add(weightedLayer, self.bias[layerIndex]) )
 
-        except:
-            print("ohno")
+            if( layerIndex < maxLayer ):
+                return self.think( inp, layerIndex + 1, outputLayer )
+            else:
+                return outputLayer
+
+        #except:
+        #    self.debug( f"{sys.exc_info()}", db.level.fail )
