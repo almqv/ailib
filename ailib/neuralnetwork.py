@@ -10,7 +10,7 @@ class neural_network:
 
         self.debug( f"Created neural network {self}" )
 
-    def debug( text:str, lvl:str ):
+    def debug( self, text:str, lvl: str=db.level.info ):
         if( self.enableDebug ):
             db.debug( text, lvl )
 
