@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 
 import ailib.debug as db
@@ -22,15 +23,18 @@ class neural_network:
         #
         # The offset is what is added to each weight/bias when randomizing them
 
-        self.debug( f"Generating layers {neuronDimensions}" )
+        try:
+            self.debug( f"Generating layers {neuronDimensions}" )
 
-        self.debug( "Generating weight matrix", indent=1 )
-        self.weights = [None] * (len(neuronDimensions) - 1)
+            self.debug( "Generating weight matrix", indent=1 )
+            self.weights = [None] * (len(neuronDimensions) - 1)
 
-        for index, neuronCount in enumerate(neuronDimensions):
-            if( index > 0 ):
-                self.debug( f"{index} : {neuronCount}", indent=2 )
+            for index, neuronCount in enumerate(nneuronDimensions):
+                if( index > 0 ):
+                    self.weights[index - 1] = np.random.rand( neuronDimensions[index-1], neuronCount )
 
-                self.weights[index - 1] = np.random.rand( neuronDimensions[index-1], neuronCount )
+            self.debug( f"Generated weights: {self.weights}", indent=1 )
 
-        self.debug( f"Generated weights: {self.weights}", indent=1 )
+        except:
+            err = sys.exc_info()
+            self.debug( f"{err}", db.level.fail )
