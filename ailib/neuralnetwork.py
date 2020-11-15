@@ -26,7 +26,7 @@ class neural_network:
 
         self.debug( "Generating weight matrix", indent=1 )
         self.weights = []
-
+        print(neuronDimensions)
         for index, neuronCount in enumerate(neuronDimensions):
             if( index > 0 ):
                 self.debug( f"{index} : {neuronCount}", indent=2 )
