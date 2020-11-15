@@ -23,3 +23,4 @@ class neural_network:
         # The offset is what is added to each weight/bias when randomizing them
 
         self.debug( f"Generating layers {neuronDimensions}" )
+        self.debug( f"Generating weight matrix" )
