@@ -29,7 +29,7 @@ class neural_network:
             self.debug( "Generating weight matrix", indent=1 )
             self.weights = [None] * (len(neuronDimensions) - 1)
 
-            for index, neuronCount in enumerate(nneuronDimensions):
+            for index, neuronCount in enumerate(neuronDimensions):
                 if( index > 0 ):
                     self.weights[index - 1] = np.random.rand( neuronDimensions[index-1], neuronCount )
 
