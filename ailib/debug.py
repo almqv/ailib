@@ -4,8 +4,8 @@ UNDERLINE = "\033[4m"
 
 class level:
     info = "\033[94m[DEBUG]" + ENDC
-    success = "\033[92m[ + ]" + ENDC
-    warn = BOLD + "\033[93m[WARN]" + ENDC
+    success = BOLD + "\033[92m[+]" + ENDC
+    warn = "\033[93m[WARN]" + ENDC
     fail = BOLD + "\033[91m[FAIL]" + ENDC
 
 
