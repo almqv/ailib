@@ -25,14 +25,12 @@ class neural_network:
         self.debug( f"Generating layers {neuronDimensions}" )
 
         self.debug( "Generating weight matrix", indent=1 )
-        self.weights = []
-        print(neuronDimensions)
+        self.weights = [None] * len(neuronDimensions)
+
         for index, neuronCount in enumerate(neuronDimensions):
             if( index > 0 ):
                 self.debug( f"{index} : {neuronCount}", indent=2 )
 
                 self.weights[index] = np.random.rand( neuronDimensions[index-1], neuronCount )
 
-            self.debug( f"Weights {self.weights}", indent=2, end="\r" )
-
-        self.debug( f"\nGenerated weights: {self.weights}", indent=1 )
+        self.debug( f"Generated weights: {self.weights}", indent=1 )
