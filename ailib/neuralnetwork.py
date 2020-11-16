@@ -61,14 +61,15 @@ class neural_network:
     def loadLayers( self, savefile:str ): # TODO: Load weights and biases from files
         self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
 
-    def think( self, inp:np.array, layerIndex:int = 0 ):
+    def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None ):
         #try:
-            self.debug( f"Thinking: {inp}..." )
+            maxPropLayer = maxPropLayer or self.maxLayerIndex - 1
+            self.debug( f"[{layerIndex}/{maxPropLayer}] Layer thinking: {inp} ..." )
 
             weightedLayer = np.dot( inp, self.weights[layerIndex] )
             outputLayer = func.sigmoid( np.add(weightedLayer, self.bias[layerIndex]) )
 
-            if( layerIndex < self.maxLayerIndex ):
+            if( layerIndex < maxPropLayer ):
                 return self.think( outputLayer, layerIndex + 1 )
             else:
                 return outputLayer
