@@ -7,7 +7,7 @@ This is a lightweight AI library that works as a wrapper.
 #### Neural Networks
 - [ ] Thinking
 	- [x] Generating neural matrix
-	- [ ] Prediction
+	- [x] Prediction
 - [ ] Learning
 	- [ ] Stochastic gradient descent (SGD)
 - [ ] Support for networks of (neural) networks
