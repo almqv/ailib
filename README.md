@@ -1,6 +1,16 @@
 # AIlib (VERY WIP)
 This is a lightweight AI library that works as a wrapper. 
 
+## Installation
+ 1. `git clone https://github.com/E-Almqvist/ailib.git`
+ 2. That is it.
+ 
+## Usage
+``` python
+from ailib import ai
+
+```
+
 ## Features
 (Checked boxes are implemented features and unchecked has not been implemented yet.)
 
