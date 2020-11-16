@@ -53,6 +53,8 @@ class neural_network:
 
             self.debug( f"Generated bias matrix: {self.bias}", db.level.success, indent=1 )
 
+            self.maxLayerIndex = len(self.weights) # Used when recursivley thinking
+
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
@@ -62,12 +64,11 @@ class neural_network:
     def think( self, inp:np.array, layerIndex:int = 0 ):
         #try:
             self.debug( f"Thinking: {inp}..." )
-            maxLayer = len(self.neuronDimensions) - 1
 
             weightedLayer = np.dot( inp, self.weights[layerIndex] )
             outputLayer = func.sigmoid( np.add(weightedLayer, self.bias[layerIndex]) )
 
-            if( layerIndex < maxLayer ):
+            if( layerIndex < self.maxLayerIndex ):
                 return self.think( outputLayer, layerIndex + 1 )
             else:
                 return outputLayer
