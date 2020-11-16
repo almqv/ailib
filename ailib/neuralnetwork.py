@@ -62,7 +62,7 @@ class neural_network:
         self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
 
     def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None ):
-        #try:
+        try:
             maxPropLayer = maxPropLayer or self.maxLayerIndex - 1
             self.debug( f"[{layerIndex}/{maxPropLayer}] Layer thinking: {inp} ..." )
 
@@ -74,5 +74,5 @@ class neural_network:
             else:
                 return outputLayer
 
-        #except:
-        #    self.debug( f"{sys.exc_info()}", db.level.fail )
+        except:
+            self.debug( f"{sys.exc_info()}", db.level.fail )
