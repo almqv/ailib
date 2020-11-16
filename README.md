@@ -3,7 +3,7 @@ This is a lightweight AI library that works as a wrapper.
 
 ## Installation
  1. `git clone https://github.com/E-Almqvist/ailib.git`
- 2. That is it.
+ 2. Import it in your project and that is it.
  
 ## Usage
 ``` python
@@ -14,8 +14,8 @@ my_neural_network.generateLayers( [1, 1] ) # Generate 1 input neuron and 1 outpu
 
 my_neural_network.think( [0.2] ) # Make the AI "think" about "0.2" and it will give out 1 output.
 
-# This network does not do anything really. 
-# Examples on how to optimize the network will come when I have implemented that feature.
+# This network does not really do anything usefull. 
+# Examples on how to optimize a network with this library will come whenever I have implemented that feature.
 ```
 
 ## Features
