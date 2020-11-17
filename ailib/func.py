@@ -25,7 +25,7 @@ def getChangeInCost( obj, inp:np.array, theta:float, layerIndex:int ):
 
     return dCost_W, dCost_B, (curCostBias + curCostWeight)/2
 
-def gradient( inp:np.array, obj, theta:float, layerIndex:int = 0, grads:dict = None, obj1 = None, obj2 = None ):
+def gradient( inp:np.array, obj, theta:float, layerIndex:int = 0, grads:dict = None ):
     # Check if grads exists, if not create the buffer
     grads = grads or [None] * (maxLayer+1)
 
@@ -42,6 +42,6 @@ def gradient( inp:np.array, obj, theta:float, layerIndex:int = 0, grads:dict = N
     }
 
     if( newLayer <= maxLayer ):
-        return gradient( inp, obj, theta, layerIndex + 1, grads, obj1, obj2 )
+        return gradient( inp, obj, theta, layerIndex + 1, grads )
     else:
         return grads, dCost_W, dCost_B, meanCurCost
