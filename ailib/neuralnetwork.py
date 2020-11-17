@@ -62,7 +62,7 @@ class neural_network:
     def loadLayers( self, savefile:str ): # TODO: Load weights and biases from files
         self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
 
-    def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None, learn:bool = False, showDebug:bool = True ):
+    def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None, showDebug:bool = True ):
         try:
             maxPropLayer = maxPropLayer or self.maxLayerIndex - 1
 
@@ -86,5 +86,5 @@ class neural_network:
         inp = None
 
         while( gen <= teachTimes ):
-            inp = np.asarray(np.random.rand( 1, inputNum ))[0] # generate a random input for the network
-            self.think(  )
+            inp = np.asarray(np.random.rand( 1, self.inputDimensions ))[0] # generate a random input for the network
+            self.think( inp, showDebug = False )
