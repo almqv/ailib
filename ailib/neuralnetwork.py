@@ -13,10 +13,14 @@ class neural_network:
         self.weights = weights
         self.bias = bias
 
+        # SGD stuff
+        self.teachTimes = 100 # amount of times the network will be thaught
+
         if( correctFuncPointer ):
             self.correctFuncPointer = correctFuncPointer
         else:
             self.debug( "No correct function pointer. The network will be unable to learn.", db.level.warn )
+
 
         self.debug( f"Created neural network {self}", db.level.success )
 
@@ -97,12 +101,14 @@ class neural_network:
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
-    def teach( self, teachTimes:int, theta:float = 0.001, showDebug:bool = True ):
+    def setTeachTimes( self, teachTimes:int ):
+        self.teachTimes = teachTimes
 
-        gen = 0
-        inp = None
+    def teach_sgd( self, theta:float = 0.001, showDebug:bool = False ): # Teach the network using stochastic gradient descent
+        gen = 0 # the generation
+        inp = None # input, gets randomized each generation
 
-        while( gen <= teachTimes ):
+        while( gen <= self.teachTimes ):
             inp = np.asarray(np.random.rand( 1, self.inputDimensions ))[0] # generate a random input for the network
             grads, dCost_bias, dCost_weights, meanCost = func.gradient( self, inp, theta ) # calculate the gradient
 

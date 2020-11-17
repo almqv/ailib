@@ -4,6 +4,7 @@
 # It is also a "testing" file.
 
 from ailib import ai
+import numpy as np
 
 test = ai.neural_network() # Create a new instace of a network
 test.generateLayers( [2, 4, 2] )
@@ -16,7 +17,7 @@ test.generateLayers( [2, 4, 2] )
 #   I   N   O
 #       N
 
+thinkTest = test.think([1, 0.2]) # Make the network think about [1, 0.2] and then assign the output to "thinkTest"
+test.debug( str(thinkTest) ) # Print out the output
 
-test.debug( str(test.think([1, 0.2])) )
-
-test.teach( 100000 )
+test.teach( 1000 ) # Teach the AI 1000 times
