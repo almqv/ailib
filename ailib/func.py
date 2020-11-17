@@ -5,6 +5,28 @@ from ailib import ai
 def sigmoid(x):
     return 1/(1 + np.exp(-x))
 
+def getChangeInCost( obj, inp, theta, layerIndex ):
+    mirrorObj = copy(obj)
+
+    # Fill the buffer with a placeholder so that the dCost can replace it later
+    dCost_W = np.zeros( shape = mirrorObj.weights[layerIndex].shape )
+    dCost_B = np.zeros( shape = mirrorObj.bias[layerIndex].shape )
+
+    # Get the cost change for the weights
+    weightLenX = len(dCost_W)
+    weightLenY = len(dCost_W[0])
+
+    for x in range(weightLenX): # get the dCost for each x,y
+        for y in range(weightLenY):
+            dCost_W[x][y], curCostWeight = compareInstanceWeight( obj, inp, theta, layerIndex, x, y )
+
+    # Get the cost change for the biases
+    biasLenY = len(dCost_B[0])
+    for index in range(biasLenY):
+        dCost_B[0][index], curCostBias = compareInstanceBias( obj, inp, theta, layerIndex, index )
+
+    return dCost_W, dCost_B, (curCostBias + curCostWeight)/2
+
 def gradient( inp:np.array, obj:ai.neural_network, theta:float, layerIndex:int = 0, grads:dict = None, obj1:ai.neural_network = None, obj2:ai.neural_network = None ):
     # Check if grads exists, if not create the buffer
     grads = grads or [None] * (maxLayer+1)
