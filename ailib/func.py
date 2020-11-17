@@ -8,6 +8,18 @@ def sigmoid(x):
 
 # Gradient descent stuff
 
+def getErrorDifference( inp:np.array, net1:object, net2:object ):
+    # Compare the two instances
+    res1 = net1.think(inp)
+    err1 = net1.getError(inp) # get the networks error
+
+    res2 = net2.think(inp)
+    err2 = net2.getError(inp) # get the second error
+
+    # Return the difference in error
+    dErr = cost2 - cost1
+    return dErr, err2
+
 def compareInstanceWeight( network:object, inp:np.array, theta:float, layerIndex:int, neuronIndex_X:int, neuronIndex_Y:int ):
     # Create new a instance of the object
     network2 = copy(network) # annoying way to create a new instance of the object
