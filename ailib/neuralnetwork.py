@@ -27,6 +27,7 @@ class neural_network:
 
         try:
             self.neuronDimensions = neuronDimensions
+            self.inputDimensions = self.neuronDimensions[0]
 
             self.debug( f"Generating layers {neuronDimensions}" )
             layersLen = len(neuronDimensions)
@@ -64,18 +65,26 @@ class neural_network:
     def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None, learn:bool = False, showDebug:bool = True ):
         try:
             maxPropLayer = maxPropLayer or self.maxLayerIndex - 1
-            self.debug( f"[{layerIndex}/{maxPropLayer}] Layer thinking: {inp} ..." )
+
+            if( showDebug ):
+                self.debug( f"[{layerIndex}/{maxPropLayer}] Layer thinking: {inp} ..." )
 
             weightedLayer = np.dot( inp, self.weights[layerIndex] )
             outputLayer = func.sigmoid( np.add(weightedLayer, self.bias[layerIndex]) )
 
             if( layerIndex < maxPropLayer ):
-                return self.think( outputLayer, layerIndex + 1, maxPropLayer )
+                return self.think( outputLayer, layerIndex + 1, maxPropLayer, learn, showDebug )
             else:
                 return outputLayer
 
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
-    def teach( self, teachTimes:int, theta:float = 0.001 ):
-        print("a")
+    def teach( self, teachTimes:int, theta:float = 0.001, showDebug:bool = True ):
+
+        gen = 0
+        inp = None
+
+        while( gen <= teachTimes ):
+            inp = np.asarray(np.random.rand( 1, inputNum ))[0] # generate a random input for the network
+            self.think(  )
