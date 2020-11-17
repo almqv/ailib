@@ -19,4 +19,4 @@ test.generateLayers( [2, 4, 2] )
 
 test.debug( str(test.think([1, 0.2])) )
 
-test.teach( 5 )
+test.teach( 100000 )
