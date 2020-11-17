@@ -28,6 +28,10 @@ class neural_network:
         if( self.enableDebug ): # Only debug when it is enabled
             db.debug( text, level, indent, end )
 
+
+    def setTeachTimes( self, teachTimes:int ):
+        self.teachTimes = teachTimes
+
     def generateLayers( self, neuronDimensions:list = [ 1, 1 ], offset:float = -0.25 ):
         # The neuronDimensions are the dimensions of the neurons. Each index is a layer and that
         # indices value is the amount of neurons in that layer.
@@ -72,6 +76,7 @@ class neural_network:
     def loadLayers( self, savefile:str ): # TODO: Load weights and biases from files
         self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
 
+
     def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None, showDebug:bool = True, firstInput:np.array = None ):
         try:
             if( layerIndex == 0 and firstInput == None ):
@@ -112,18 +117,21 @@ class neural_network:
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
-    def setTeachTimes( self, teachTimes:int ):
-        self.teachTimes = teachTimes
+    def mutate( self, gradient:list, lr:float ):
+        for layer in range(self.maxLayerIndex):
+            self.weights[layer] -= lr * gradient[layer]["weight"] # mutate the weights
+            self.bias[layer] -= lr * gradient[layer]["bias"]
 
-    def teach_sgd( self, theta:float = 0.001, showDebug:bool = False ): # Teach the network using stochastic gradient descent
+    def teach_sgd( self, theta:float = 0.001, lr:float = 0.1, showDebug:bool = False ): # Teach the network using stochastic gradient descent
         gen = 0 # the generation
         inp = None # input, gets randomized each generation
 
         while( gen <= self.teachTimes ):
             inp = np.asarray(np.random.rand( 1, self.inputDimensions ))[0] # generate a random input for the network
-            grads, dErr_bias, dErr_weights, meanErr = func.gradient( self, inp, theta ) # calculate the gradient
+            gradient, dErr_bias, dErr_weights, meanErr = func.gradient( self, inp, theta ) # calculate the gradient
 
             # Mutate the weights and biases
+            self.mutate( gradient, lr )
 
             self.debug( f"Teaching [{gen}/{self.teachTimes}]: Error: {meanErr}", db.level.status, end="\r" )
 

@@ -11,7 +11,6 @@ def invertArray(inp:np.array):  # NOTE: This function is used for comparing the 
     return np.asarray(newArray) # This function can do whatever you want BUT:
                                           # It can only have 1 argument that is the input array!
 
-
 test = ai.neural_network( correctFuncPointer = invertArray ) # Create a new instace of a network
 # correctFuncPointer has to be assigned a function otherwise you will not be able to teach the network.
 
@@ -26,7 +25,9 @@ test.generateLayers( [2, 4, 2] ) # Generate the networks layers
 
 # Using the network:
 thinkTest = test.think([1, 0.2]) # Make the network think about [1, 0.2] and then assign the output to "thinkTest"
+# The actual output should be [0.2, 1] but we will get something far away from that.
+# In order for the network to work; we have to teach it.
 
 # Teaching the network:
 test.setTeachTimes( 1000 ) # Teach the network 1000 times
-test.teach_sgd() # Teach the network using sthocatic gradient descent (https://en.wikipedia.org/wiki/Stochastic_gradient_descent)
+test.teach_sgd() # Teach the network using stochastic gradient descent (https://en.wikipedia.org/wiki/Stochastic_gradient_descent)
