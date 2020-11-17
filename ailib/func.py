@@ -1,17 +1,19 @@
 import numpy as np
 
+from ailib import ai
+
 def sigmoid(x):
     return 1/(1 + np.exp(-x))
 
-def gradient( inp:np.array, obj, theta:float, maxLayer:int, layerIndex: int=0, grads=None, obj1=None, obj2=None ): # Calculate the gradient for that prop
+def gradient( inp:np.array, obj:ai.neural_network, theta:float, layerIndex:int = 0, grads:dict = None, obj1:ai.neural_network = None, obj2:ai.neural_network = None ):
     # Check if grads exists, if not create the buffer
     grads = grads or [None] * (maxLayer+1)
 
     dCost_W, dCost_B, meanCurCost = getChangeInCost( obj, inp, theta, layerIndex )
 
     # Calculate the gradient for the layer
-    weightDer = propDer( dCost_W, theta )
-    biasDer = propDer( dCost_B, theta )
+    weightDer = dCost_W / theta
+    biasDer = dCost_B / theta
 
     # Append the gradients to the list
     grads[layerIndex] = {
