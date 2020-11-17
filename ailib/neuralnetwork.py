@@ -96,7 +96,12 @@ class neural_network:
     def getError( self, inp:np.array, predicted:np.array ):
         try:
             correctOutput = self.correctFunc(inp=predicted) # get the correct answer
+            errSum = 0
 
+            for i in range(self.outputDimensions):
+                errSum += abs( (predicted[i] - correctOutput[i]) )
+
+            return errSum / self.outputDimensions
 
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
