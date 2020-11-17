@@ -91,7 +91,6 @@ class neural_network:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
     def correctFunc( self, inp:np.array ): # Wrapper for the "correct function".
-        print(inp)
         return self.correctFuncPointer(inp)
 
     def getError( self, inp:np.array, predicted:np.array ):
