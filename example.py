@@ -1,37 +1,42 @@
 #!/usr/bin/env python
 
 # This is a example on how to use this library.
-# It is also a "testing" file.
+# This is also a "testing" file.
 
 from ailib import ai
 import numpy as np
 
-def invertArray(inp:np.array):  # NOTE: This function is used for comparing the predicted output and actual output
-    newArray = [ inp[1], inp[0] ]
-    return np.asarray(newArray) # This function can do whatever you want BUT:
-                                          # It can only have 1 argument that is the input array!
+# This network will attempt to invert RGB values...
+# i.e. [1, 1, 1] -> [0, 0, 0]
+# i.e. white -> black
 
-test = ai.neural_network( correctFuncPointer = invertArray ) # Create a new instace of a network
-# correctFuncPointer has to be assigned a function otherwise you will not be able to teach the network.
+def invertRGB(inp:np.array):  # NOTE: This function is used for comparing the predicted output and actual output
+    out = [ 1 - inp[0], 1 - inp[1], 1 - inp[2] ]
+    return np.asarray(out) # This function can do whatever you want BUT:
+                           # It can only have 1 argument that is the input array!
 
-test.generateLayers( [2, 4, 2] ) # Generate the networks layers
+test = ai.neural_network( correctFuncPointer = invertRGB ) # Create a new instace for a network
+# correctFuncPointer must be assigned to a function otherwise you will not be able to teach the network.
+
+test.generateLayers( [3, 3, 3] ) # Generate the networks layers
 # This will generate the following network:
 # (I: Input neuron, N: Hidden neuron, O: Output neuron)
 #
-#       N
 #   I   N   O
 #   I   N   O
-#       N
+#   I   N   O
+
 
 # Using the network:
-testInput = [1, 0.2]
+testInput = [1, 1, 1]
 
-thinkTest = test.think( testInput) # Make the network think about [1, 0.2] and then assign the output to "thinkTest"
-# The actual output should be [0.2, 1] but we will get something far away from that.
+thinkTest = test.think( testInput) # Make the network think about [1, 1, 1] and then assign the output to "thinkTest"
+# The actual output should be [0, 0, 0] but we will get something far away from that.
 # In order for the network to work; we have to teach it.
 
 # Teaching the network:
-test.setTeachTimes( 1000 ) # Teach the network 1000 times
+test.setTeachTimes( 10000 ) # Teach the network 1000 times
 test.teach_sgd() # Teach the network using stochastic gradient descent (https://en.wikipedia.org/wiki/Stochastic_gradient_descent)
+# The correctFuncPointer is needed here for it to test itself against it.
 
 teachThinkTest = test.think( testInput ) # test the network again and see what result it got
