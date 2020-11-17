@@ -7,7 +7,7 @@ import ailib.func as func
 
 
 class neural_network:
-    def __init__( self, enableDebug:bool = True, weights:np.matrix = None, bias:np.matrix = None ):
+    def __init__( self, enableDebug:bool = True, weights:np.matrix = None, bias:np.matrix = None, correctFunc = None ):
         self.weights = weights
         self.bias = bias
 
