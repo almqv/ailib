@@ -10,10 +10,10 @@ def sigmoid(x):
 
 def getErrorDifference( inp:np.array, net1:object, net2:object ):
     # Compare the two instances
-    res1 = net1.think(inp)
+    res1 = net1.think( inp, showDebug=False )
     err1 = net1.getError(inp) # get the networks error
 
-    res2 = net2.think(inp)
+    res2 = net2.think( inp, showDebug=False )
     err2 = net2.getError(inp) # get the second error
 
     # Return the difference in error

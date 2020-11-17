@@ -7,9 +7,11 @@ import ailib.func as func
 
 
 class neural_network:
-    def __init__( self, enableDebug:bool = True, weights:np.matrix = None, bias:np.matrix = None, correctFunc = None ):
+    def __init__( self, enableDebug:bool = True, weights:np.matrix = None, bias:np.matrix = None, correctFuncPointer = None ):
         self.weights = weights
         self.bias = bias
+
+        self.correctFuncPointer = correctFuncPointer
 
         self.enableDebug = enableDebug
 
@@ -80,8 +82,8 @@ class neural_network:
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
-    def getError( self, inp:np.array ):
-        print("err")
+    def getError( self, inp:np.array, predicted:np.array ):
+        correctOutput = self.correctFunc(inp=predicted)
 
     def teach( self, teachTimes:int, theta:float = 0.001, showDebug:bool = True ):
 
