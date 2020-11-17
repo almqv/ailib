@@ -14,7 +14,7 @@ def getErrorDifference( inp:np.array, net1:object, net2:object ):
     err1 = net1.getError( inp, res1 ) # get the networks error
 
     res2 = net2.think( inp, showDebug=False )
-    err2 = net2.getError( inp, res1 ) # get the second error
+    err2 = net2.getError( inp, res2 ) # get the second error
 
     # Return the difference in error
     dErr = err2 - err1
@@ -23,7 +23,6 @@ def getErrorDifference( inp:np.array, net1:object, net2:object ):
 def compareInstanceWeight( network:object, inp:np.array, theta:float, layerIndex:int, neuronIndex_X:int, neuronIndex_Y:int ):
     # Create new a instance of the object
     network2 = copy(network) # annoying way to create a new instance of the object
-
     network2.weights[layerIndex][neuronIndex_X][neuronIndex_Y] += theta # mutate the second objects neuron
     dErr, curErr = getErrorDifference( inp, network, network2 ) # compare the two and get the dCost with respect to the weights
 
