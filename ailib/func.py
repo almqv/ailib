@@ -53,7 +53,7 @@ def getChangeInError( network:object, inp:np.array, theta:float, layerIndex:int 
             dErr_W[x][y], curErrWeight = compareInstanceWeight( network, inp, theta, layerIndex, x, y )
 
     # Get the cost change for the biases
-    biasLenY = len(dCost_B[0])
+    biasLenY = len(dErr_B[0])
     for index in range(biasLenY):
         dErr_B[0][index], curErrBias = compareInstanceBias( network, inp, theta, layerIndex, index )
 
