@@ -89,4 +89,8 @@ class neural_network:
             inp = np.asarray(np.random.rand( 1, self.inputDimensions ))[0] # generate a random input for the network
             self.think( inp, showDebug = False )
 
+            self.debug( f"Teaching [{gen}/{teachTimes}]: Cost:", end="\r" )
+
             gen += 1
+
+        self.debug( f"\nTeaching finished!", db.level.success )
