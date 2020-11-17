@@ -30,7 +30,7 @@ def gradient( network:object, inp:np.array, theta:float, layerIndex:int = 0, gra
     # Check if grads exists, if not create the buffer
     grads = grads or [None] * ( network.maxLayerIndex - 1 )
 
-    dCost_W, dCost_B, meanCurCost = getChangeInCost( obj, inp, theta, layerIndex )
+    dCost_W, dCost_B, meanCurCost = getChangeInCost( network, inp, theta, layerIndex )
 
     # Calculate the gradient for the layer
     weightDer = dCost_W / theta
