@@ -89,9 +89,12 @@ class neural_network:
             inp = np.asarray(np.random.rand( 1, self.inputDimensions ))[0] # generate a random input for the network
             self.think( inp, showDebug = False )
 
-            self.debug( f"Teaching [{gen}/{teachTimes}]: Cost:", end="\r" )
+            grads, dCost_bias, dCost_weights, meanCost = func.gradient( self, inp, theta ) # calculate the gradient
+
+            self.debug( f"Teaching [{gen}/{teachTimes}]: Cost: {meanCost}", end="\r" )
 
             gen += 1
+
         print("\n")
 
         self.debug( f"Teaching finished!", db.level.success )
