@@ -60,8 +60,8 @@ def getChangeInError( network:object, inp:np.array, theta:float, layerIndex:int 
     return dErr_W, dErr_B, (curErrBias + curErrWeight)/2
 
 def gradient( network:object, inp:np.array, theta:float, layerIndex:int = 0, grads:dict = None ):
-    # Check if grads exists, if not create the buffer
-    grads = grads or [None] * ( network.maxLayerIndex - 1 )
+    maxLayer = network.maxLayerIndex - 1
+    grads = grads or [None] * (network.maxLayerIndex) # Check if the gradient exists, if not then create
 
     dErr_W, dErr_B, meanCurErr = getChangeInError( network, inp, theta, layerIndex )
 
@@ -75,7 +75,7 @@ def gradient( network:object, inp:np.array, theta:float, layerIndex:int = 0, gra
         "bias": biasDer
     }
 
-    if( newLayer <= maxLayer ):
+    if( layerIndex < maxLayer ):
         return gradient( network, inp, theta, layerIndex + 1, grads )
     else:
         return grads, dErr_W, dErr_B, meanCurErr
