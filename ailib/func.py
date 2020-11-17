@@ -3,7 +3,7 @@ import numpy as np
 def sigmoid(x):
     return 1/(1 + np.exp(-x))
 
-def getChangeInCost( obj, inp:np.array, theta:float, layerIndex:int ):
+def getChangeInCost( network:object, inp:np.array, theta:float, layerIndex:int ):
     mirrorObj = copy(obj)
 
     # Fill the buffer with a placeholder so that the dCost can replace it later
@@ -25,7 +25,7 @@ def getChangeInCost( obj, inp:np.array, theta:float, layerIndex:int ):
 
     return dCost_W, dCost_B, (curCostBias + curCostWeight)/2
 
-def gradient( inp:np.array, obj, theta:float, layerIndex:int = 0, grads:dict = None ):
+def gradient( network:object, inp:np.array, theta:float, layerIndex:int = 0, grads:dict = None ):
     # Check if grads exists, if not create the buffer
     grads = grads or [None] * (maxLayer+1)
 
@@ -42,6 +42,6 @@ def gradient( inp:np.array, obj, theta:float, layerIndex:int = 0, grads:dict = N
     }
 
     if( newLayer <= maxLayer ):
-        return gradient( inp, obj, theta, layerIndex + 1, grads )
+        return gradient( network, inp, theta, layerIndex + 1, grads )
     else:
         return grads, dCost_W, dCost_B, meanCurCost
