@@ -7,8 +7,8 @@ from ailib import ai
 import numpy as np
 
 def invertArray(inp:np.array):  # NOTE: This function is used for comparing the predicted output and actual output
-    return np.asarray( [inp[2], inp[1], inp[0]] ) # This function can do whatever you want BUT:
-                                                  # It can only have 1 argument that is the input array!
+    return np.asarray( [inp[1], inp[0]] ) # This function can do whatever you want BUT:
+                                          # It can only have 1 argument that is the input array!
 
 
 test = ai.neural_network( correctFuncPointer = invertArray ) # Create a new instace of a network
