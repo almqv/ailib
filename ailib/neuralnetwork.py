@@ -85,7 +85,7 @@ class neural_network:
             if( layerIndex < maxPropLayer ):
                 return self.think( outputLayer, layerIndex + 1, maxPropLayer, showDebug )
             else:
-                return outputLayer
+                return np.squeeze(outputLayer)
 
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
@@ -94,7 +94,7 @@ class neural_network:
         return self.correctFuncPointer( np.squeeze(inp) )
 
     def getError( self, inp:np.array, predicted:np.array ):
-        #try:
+        try:
             correctOutput = self.correctFunc(predicted) # get the correct answer
             errSum = 0
 
@@ -103,8 +103,8 @@ class neural_network:
 
             return errSum / self.outputDimensions
 
-        #except:
-        #    self.debug( f"{sys.exc_info()}", db.level.fail )
+        except:
+            self.debug( f"{sys.exc_info()}", db.level.fail )
 
     def setTeachTimes( self, teachTimes:int ):
         self.teachTimes = teachTimes
