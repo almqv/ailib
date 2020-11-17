@@ -72,19 +72,25 @@ class neural_network:
     def loadLayers( self, savefile:str ): # TODO: Load weights and biases from files
         self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
 
-    def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None, showDebug:bool = True ):
+    def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None, showDebug:bool = True, firstInput:np.array = None ):
         try:
+            if( layerIndex == 0 and firstInput == None ):
+                firstInput = inp
+
             maxPropLayer = maxPropLayer or self.maxLayerIndex - 1
 
-            if( showDebug ):
-                self.debug( f"[{layerIndex}/{maxPropLayer}] Layer thinking: {inp} ..." )
-
             weightedLayer = np.dot( inp, self.weights[layerIndex] )
-            outputLayer = func.sigmoid( np.add(weightedLayer, self.bias[layerIndex]) )
+            outputLayer = np.squeeze( func.sigmoid(np.add(weightedLayer, self.bias[layerIndex])) )
 
             if( layerIndex < maxPropLayer ):
-                return self.think( outputLayer, layerIndex + 1, maxPropLayer, showDebug )
+                if( showDebug ):
+                    self.debug( f"[{layerIndex}/{maxPropLayer}] Layer thinking: {inp} ...", db.level.status, end="\r" )
+
+                return self.think( outputLayer, layerIndex + 1, maxPropLayer, showDebug, firstInput )
             else:
+                if( showDebug ):
+                    self.debug( f"Thinking complete: {firstInput} -> {outputLayer}", db.level.success, end="\r\n" )
+
                 return np.squeeze(outputLayer)
 
         except:
@@ -117,10 +123,10 @@ class neural_network:
             inp = np.asarray(np.random.rand( 1, self.inputDimensions ))[0] # generate a random input for the network
             grads, dErr_bias, dErr_weights, meanErr = func.gradient( self, inp, theta ) # calculate the gradient
 
-            self.debug( f"Teaching [{gen}/{self.teachTimes}]: Error: {meanErr}", end="\r" )
+            # Mutate the weights and biases
+
+            self.debug( f"Teaching [{gen}/{self.teachTimes}]: Error: {meanErr}", db.level.status, end="\r" )
 
             gen += 1
 
-        print("\n")
-
-        self.debug( f"Teaching finished!", db.level.success )
+        self.debug( f"[{self.teachTimes}/{self.teachTimes}] Teaching finished! Error: {meanErr}", db.level.success, end="\r\n" )
