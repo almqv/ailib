@@ -82,8 +82,14 @@ class neural_network:
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
+    def correctFunc( self, **kwargs ): # Wrapper for the "correct function".
+        return self.correctFunc( kwargs )
+
     def getError( self, inp:np.array, predicted:np.array ):
-        correctOutput = self.correctFunc(inp=predicted)
+        try:
+            correctOutput = self.correctFunc(inp=predicted) # get the correct answer
+        except:
+            self.debug( f"{sys.exc_info()}", db.level.fail )
 
     def teach( self, teachTimes:int, theta:float = 0.001, showDebug:bool = True ):
 
