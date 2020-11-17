@@ -11,4 +11,5 @@ class level:
 
 
 def debug( text:str, level:str = level.info, indent:int = 0, end:str = "\n"):
-    print( INDENT*indent + level + " " + text, end=end )
+    debugStr = INDENT*indent + level + " " + text
+    print( debugStr, end=end )

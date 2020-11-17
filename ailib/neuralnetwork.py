@@ -92,5 +92,6 @@ class neural_network:
             self.debug( f"Teaching [{gen}/{teachTimes}]: Cost:", end="\r" )
 
             gen += 1
+        print("\n")
 
-        self.debug( f"\nTeaching finished!", db.level.success )
+        self.debug( f"Teaching finished!", db.level.success )
