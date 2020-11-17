@@ -90,12 +90,12 @@ class neural_network:
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
-    def correctFunc( self, **kwargs ): # Wrapper for the "correct function".
-        return self.correctFuncPointer( kwargs )
+    def correctFunc( self, inp:np.array ): # Wrapper for the "correct function".
+        return self.correctFuncPointer(inp)
 
     def getError( self, inp:np.array, predicted:np.array ):
-        try:
-            correctOutput = self.correctFunc(inp=predicted) # get the correct answer
+        #try:
+            correctOutput = self.correctFunc(predicted) # get the correct answer
             errSum = 0
 
             for i in range(self.outputDimensions):
@@ -103,8 +103,8 @@ class neural_network:
 
             return errSum / self.outputDimensions
 
-        except:
-            self.debug( f"{sys.exc_info()}", db.level.fail )
+        #except:
+        #    self.debug( f"{sys.exc_info()}", db.level.fail )
 
     def setTeachTimes( self, teachTimes:int ):
         self.teachTimes = teachTimes
