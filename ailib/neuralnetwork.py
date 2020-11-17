@@ -8,12 +8,15 @@ import ailib.func as func
 
 class neural_network:
     def __init__( self, enableDebug:bool = True, weights:np.matrix = None, bias:np.matrix = None, correctFuncPointer = None ):
+        self.enableDebug = enableDebug
+
         self.weights = weights
         self.bias = bias
 
-        self.correctFuncPointer = correctFuncPointer
-
-        self.enableDebug = enableDebug
+        if( correctFuncPointer ):
+            self.correctFuncPointer = correctFuncPointer
+        else:
+            self.debug( "No correct function pointer. The network will be unable to learn.", db.level.warn )
 
         self.debug( f"Created neural network {self}", db.level.success )
 
@@ -87,12 +90,12 @@ class neural_network:
         return self.correctFuncPointer( kwargs )
 
     def getError( self, inp:np.array, predicted:np.array ):
-        #try:
+        try:
             correctOutput = self.correctFunc(inp=predicted) # get the correct answer
 
 
-        #except:
-         #   self.debug( f"{sys.exc_info()}", db.level.fail )
+        except:
+            self.debug( f"{sys.exc_info()}", db.level.fail )
 
     def teach( self, teachTimes:int, theta:float = 0.001, showDebug:bool = True ):
 
