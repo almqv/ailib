@@ -73,7 +73,7 @@ class neural_network:
             outputLayer = func.sigmoid( np.add(weightedLayer, self.bias[layerIndex]) )
 
             if( layerIndex < maxPropLayer ):
-                return self.think( outputLayer, layerIndex + 1, maxPropLayer, learn, showDebug )
+                return self.think( outputLayer, layerIndex + 1, maxPropLayer, showDebug )
             else:
                 return outputLayer
 
@@ -88,3 +88,5 @@ class neural_network:
         while( gen <= teachTimes ):
             inp = np.asarray(np.random.rand( 1, self.inputDimensions ))[0] # generate a random input for the network
             self.think( inp, showDebug = False )
+
+            gen += 1
