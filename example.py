@@ -24,10 +24,14 @@ test.generateLayers( [2, 4, 2] ) # Generate the networks layers
 #       N
 
 # Using the network:
-thinkTest = test.think([1, 0.2]) # Make the network think about [1, 0.2] and then assign the output to "thinkTest"
+testInput = [1, 0.2]
+
+thinkTest = test.think( testInput) # Make the network think about [1, 0.2] and then assign the output to "thinkTest"
 # The actual output should be [0.2, 1] but we will get something far away from that.
 # In order for the network to work; we have to teach it.
 
 # Teaching the network:
 test.setTeachTimes( 1000 ) # Teach the network 1000 times
 test.teach_sgd() # Teach the network using stochastic gradient descent (https://en.wikipedia.org/wiki/Stochastic_gradient_descent)
+
+teachThinkTest = test.think( testInput ) # test the network again and see what result it got
