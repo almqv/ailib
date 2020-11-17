@@ -3,7 +3,7 @@ import numpy as np
 def sigmoid(x):
     return 1/(1 + np.exp(-x))
 
-def getChangeInCost( obj, inp, theta, layerIndex ):
+def getChangeInCost( obj, inp:np.array, theta:float, layerIndex:int ):
     mirrorObj = copy(obj)
 
     # Fill the buffer with a placeholder so that the dCost can replace it later
@@ -41,8 +41,7 @@ def gradient( inp:np.array, obj, theta:float, layerIndex:int = 0, grads:dict = N
         "bias": biasDer
     }
 
-    newLayer = layerIndex + 1
     if( newLayer <= maxLayer ):
-        return gradient( inp, obj, theta, maxLayer, newLayer, grads, obj1, obj2 )
+        return gradient( inp, obj, theta, layerIndex + 1, grads, obj1, obj2 )
     else:
         return grads, dCost_W, dCost_B, meanCurCost
