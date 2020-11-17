@@ -80,6 +80,9 @@ class neural_network:
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
+    def getError( self, inp:np.array ):
+        print("err")
+
     def teach( self, teachTimes:int, theta:float = 0.001, showDebug:bool = True ):
 
         gen = 0
