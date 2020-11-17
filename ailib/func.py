@@ -1,8 +1,29 @@
 import numpy as np
 from copy import deepcopy as copy
 
+# Prediction stuff
+
 def sigmoid(x):
     return 1/(1 + np.exp(-x))
+
+# Gradient descent stuff
+
+def compareInstanceWeight( network:object, inp:np.array, theta:float, layerIndex:int, neuronIndex_X:int, neuronIndex_Y:int ):
+    # Create new a instance of the object
+    network2 = copy(network) # annoying way to create a new instance of the object
+
+    network2.weights[layerIndex][neuronIndex_X][neuronIndex_Y] += theta # mutate the second objects neuron
+    dCost, curCost = compareAIobjects( inp, network, network2 ) # compare the two and get the dCost with respect to the weights
+
+    return dCost, curCost
+
+def compareInstanceBias( network:object, inp:np.array, theta:float, layerIndex:int, biasIndex:int ):
+    network2 = copy(network)
+
+    network2.bias[layerIndex][0][biasIndex] += theta # do the same thing for the bias
+    dCost, curCost = compareAIobjects( inp, network, network2 )
+
+    return dCost, curCost
 
 def getChangeInCost( network:object, inp:np.array, theta:float, layerIndex:int ):
     mirrorObj = copy(network)
