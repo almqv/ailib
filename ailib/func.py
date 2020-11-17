@@ -5,7 +5,7 @@ def sigmoid(x):
     return 1/(1 + np.exp(-x))
 
 def getChangeInCost( network:object, inp:np.array, theta:float, layerIndex:int ):
-    mirrorObj = copy(obj)
+    mirrorObj = copy(network)
 
     # Fill the buffer with a placeholder so that the dCost can replace it later
     dCost_W = np.zeros( shape = mirrorObj.weights[layerIndex].shape )
@@ -17,12 +17,12 @@ def getChangeInCost( network:object, inp:np.array, theta:float, layerIndex:int )
 
     for x in range(weightLenX): # get the dCost for each x,y
         for y in range(weightLenY):
-            dCost_W[x][y], curCostWeight = compareInstanceWeight( obj, inp, theta, layerIndex, x, y )
+            dCost_W[x][y], curCostWeight = compareInstanceWeight( network, inp, theta, layerIndex, x, y )
 
     # Get the cost change for the biases
     biasLenY = len(dCost_B[0])
     for index in range(biasLenY):
-        dCost_B[0][index], curCostBias = compareInstanceBias( obj, inp, theta, layerIndex, index )
+        dCost_B[0][index], curCostBias = compareInstanceBias( network, inp, theta, layerIndex, index )
 
     return dCost_W, dCost_B, (curCostBias + curCostWeight)/2
 
