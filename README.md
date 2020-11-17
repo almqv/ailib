@@ -25,8 +25,9 @@ my_neural_network.think( [0.2] ) # Make the AI "think" about "0.2" and it will g
 - [x] Thinking
 	- [x] Generating neural matrix
 	- [x] Prediction
-- [ ] Learning
-	- [ ] Stochastic gradient descent (SGD)
+- [x] Learning
+	- [x] Stochastic gradient descent (SGD)
+	- [ ] Relative learning rate
 - [ ] Support for networks of (neural) networks
 	- [ ] Input/Output passthrough
 - [ ] Support for loading trained networks
