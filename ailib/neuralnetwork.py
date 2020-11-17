@@ -30,6 +30,7 @@ class neural_network:
         try:
             self.neuronDimensions = neuronDimensions
             self.inputDimensions = self.neuronDimensions[0]
+            self.outputDimensions = self.neuronDimensions[-1]
 
             self.debug( f"Generating layers {neuronDimensions}" )
             layersLen = len(neuronDimensions)
@@ -88,6 +89,8 @@ class neural_network:
     def getError( self, inp:np.array, predicted:np.array ):
         try:
             correctOutput = self.correctFunc(inp=predicted) # get the correct answer
+
+
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
