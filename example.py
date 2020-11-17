@@ -26,8 +26,6 @@ test.generateLayers( [2, 4, 2] ) # Generate the networks layers
 
 # Using the network:
 thinkTest = test.think([1, 0.2]) # Make the network think about [1, 0.2] and then assign the output to "thinkTest"
-test.debug( str(thinkTest) ) # Print out the output
-
 
 # Teaching the network:
 test.setTeachTimes( 1000 ) # Teach the network 1000 times
