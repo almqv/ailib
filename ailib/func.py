@@ -28,7 +28,7 @@ def getChangeInCost( network:object, inp:np.array, theta:float, layerIndex:int )
 
 def gradient( network:object, inp:np.array, theta:float, layerIndex:int = 0, grads:dict = None ):
     # Check if grads exists, if not create the buffer
-    grads = grads or [None] * (maxLayer+1)
+    grads = grads or [None] * ( network.maxLayerIndex - 1 )
 
     dCost_W, dCost_B, meanCurCost = getChangeInCost( obj, inp, theta, layerIndex )
 
