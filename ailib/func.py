@@ -5,8 +5,7 @@ def sigmoid(x):
 
 def gradient( inp:np.array, obj, theta:float, maxLayer:int, layerIndex: int=0, grads=None, obj1=None, obj2=None ): # Calculate the gradient for that prop
     # Check if grads exists, if not create the buffer
-    if( not grads ):
-        grads = [None] * (maxLayer+1)
+    grads = grads or [None] * (maxLayer+1)
 
     dCost_W, dCost_B, meanCurCost = getChangeInCost( obj, inp, theta, layerIndex )
 
