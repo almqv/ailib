@@ -118,11 +118,14 @@ class neural_network:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
     def mutate( self, gradient:list, lr:float ):
+        obj = self
         for layer in range(self.maxLayerIndex):
-            self.weights[layer] -= lr * gradient[layer]["weight"] # mutate the weights
-            self.bias[layer] -= lr * gradient[layer]["bias"]
+            obj.weights[layer] -= lr * gradient[layer]["weight"] # mutate the weights
+            obj.bias[layer] -= lr * gradient[layer]["bias"]
 
-    def teach_sgd( self, theta:float = 0.001, lr:float = 0.1, showDebug:bool = False ): # Teach the network using stochastic gradient descent
+        return obj.weights, obj.bias
+
+    def teach_sgd( self, theta:float = 0.001, lr:float = 1, showDebug:bool = False ): # Teach the network using stochastic gradient descent
         gen = 0 # the generation
         inp = None # input, gets randomized each generation
 
@@ -131,7 +134,7 @@ class neural_network:
             gradient, dErr_bias, dErr_weights, meanErr = func.gradient( self, inp, theta ) # calculate the gradient
 
             # Mutate the weights and biases
-            self.mutate( gradient, lr )
+            self.weights, self.bias = self.mutate( gradient, lr )
 
             self.debug( f"Teaching [{gen}/{self.teachTimes}]: Error: {meanErr}", db.level.status, end="\r" )
 
