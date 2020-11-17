@@ -15,8 +15,8 @@ my_neural_network.generateLayers( [1, 1] ) # Generate 1 input neuron and 1 outpu
 my_neural_network.think( [0.2] ) # Make the AI "think" about "0.2" and it will give out 1 output.
 
 # This network does not really do anything usefull. 
-# Examples on how to optimize a network with this library will come whenever I have implemented that feature.
 ```
+See `example.py` for a better example.
 
 ## Features
 (Checked boxes are implemented features and unchecked has not been implemented yet.)
