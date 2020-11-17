@@ -1,7 +1,5 @@
 import numpy as np
 
-from ailib import ai
-
 def sigmoid(x):
     return 1/(1 + np.exp(-x))
 
@@ -27,7 +25,7 @@ def getChangeInCost( obj, inp, theta, layerIndex ):
 
     return dCost_W, dCost_B, (curCostBias + curCostWeight)/2
 
-def gradient( inp:np.array, obj:ai.neural_network, theta:float, layerIndex:int = 0, grads:dict = None, obj1:ai.neural_network = None, obj2:ai.neural_network = None ):
+def gradient( inp:np.array, obj, theta:float, layerIndex:int = 0, grads:dict = None, obj1 = None, obj2 = None ):
     # Check if grads exists, if not create the buffer
     grads = grads or [None] * (maxLayer+1)
 
