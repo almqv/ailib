@@ -6,9 +6,15 @@
 from ailib import ai
 import numpy as np
 
-test = ai.neural_network() # Create a new instace of a network
-test.generateLayers( [2, 4, 2] )
+def invertArray(inp:np.array):  # NOTE: This function is used for comparing the predicted output and actual output
+    return np.asarray( [inp[2], inp[1], inp[0]] ) # This function can do whatever you want BUT:
+                                                  # It can only have 1 argument that is the input array!
 
+
+test = ai.neural_network( correctFuncPointer = invertArray ) # Create a new instace of a network
+# correctFuncPointer has to be assigned a function otherwise you will not be able to teach the network.
+
+test.generateLayers( [2, 4, 2] ) # Generate the networks layers
 # This will generate the following network:
 # (I: Input neuron, N: Hidden neuron, O: Output neuron)
 #
@@ -17,7 +23,11 @@ test.generateLayers( [2, 4, 2] )
 #   I   N   O
 #       N
 
+# Using the network:
 thinkTest = test.think([1, 0.2]) # Make the network think about [1, 0.2] and then assign the output to "thinkTest"
 test.debug( str(thinkTest) ) # Print out the output
 
-test.teach( 1000 ) # Teach the AI 1000 times
+
+# Teaching the network:
+test.setTeachTimes( 1000 ) # Teach the network 1000 times
+test.teach_sgd() # Teach the network using sthocatic gradient descent (https://en.wikipedia.org/wiki/Stochastic_gradient_descent)
