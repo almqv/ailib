@@ -106,7 +106,7 @@ class neural_network:
 
     def getError( self, inp:np.array, predicted:np.array ):
         try:
-            correctOutput = self.correctFunc(predicted) # get the correct answer
+            correctOutput = self.correctFunc(inp) # get the correct answer
             errSum = 0
 
             for i in range(self.outputDimensions):
