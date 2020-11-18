@@ -18,7 +18,7 @@ def getErrorDifference( inp:np.array, net1:object, net2:object ):
 
     # Return the difference in error
     dErr = err2 - err1
-    return dErr, err2
+    return dErr, err1
 
 def compareInstanceWeight( network:object, inp:np.array, theta:float, layerIndex:int, neuronIndex_X:int, neuronIndex_Y:int ):
     # Create new a instance of the object
