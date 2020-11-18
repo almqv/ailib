@@ -35,8 +35,8 @@ thinkTest = test.think( testInput) # Make the network think about [1, 1, 1] and 
 # In order for the network to work; we have to teach it.
 
 # Teaching the network:
-test.setTeachTimes( 10000 ) # Teach the network 10000 times
-test.teach_sgd() # Teach the network using stochastic gradient descent (https://en.wikipedia.org/wiki/Stochastic_gradient_descent)
+test.setTeachTimes( 100000 ) # Teach the network 100000 times
+test.teach_sgd(theta=0.001) # Teach the network using stochastic gradient descent (https://en.wikipedia.org/wiki/Stochastic_gradient_descent)
 # The correctFuncPointer is needed here for it to test itself against it.
 
 teachThinkTest = test.think( testInput ) # test the network again and see what result it got
