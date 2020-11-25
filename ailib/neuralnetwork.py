@@ -127,7 +127,7 @@ class neural_network:
         inp = None # input, gets randomized each generation
 
         while( gen <= self.teachTimes ):
-            inp = np.asarray(np.random.rand( 1, self.inputDimensions ))[0] # generate a random input for the network
+            inp = self.inputDataFeeder( gen, self.inputDimensions ) # Use the networks data feeder function pointer to pick random inputs
             gradient, dErr_bias, dErr_weights, meanErr = func.gradient( self, inp, theta ) # calculate the gradient
 
             # Mutate the weights and biases
