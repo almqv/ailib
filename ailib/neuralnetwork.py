@@ -73,7 +73,6 @@ class neural_network:
     def loadLayers( self, savefile:str ): # TODO: Load weights and biases from files
         self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
 
-
     def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None, showDebug:bool = True, firstInput:np.array = None ):
         try:
             if( layerIndex == 0 and firstInput == None ):
@@ -98,9 +97,14 @@ class neural_network:
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
+    # Wrappers for pointers
     def correctFunc( self, inp:np.array ): # Wrapper for the "correct function".
         return self.correctFuncPointer( np.squeeze(inp) )
 
+    def dataFeeder( self, gen:int, inputDimensions:int ):
+        return self.dataFeederFuncPointer ( gen, inputDimensions )
+
+    # Teaching functions
     def getError( self, inp:np.array, predicted:np.array ):
         try:
             correctOutput = self.correctFunc(inp) # get the correct answer
@@ -124,15 +128,15 @@ class neural_network:
         inp = None # input, gets randomized each generation
 
         if( not self.correctFuncPointer ):
-            self.debug( "No correctFunc pointer assigned. The network will be unable to learn.", db.level.fail )
+            self.debug( "No correctFunc function pointer assigned. The network will be unable to learn.", db.level.fail )
             return
 
         if( not self.inputDataFeederPointer ):
-            self.debug( "No dataFeederFunc pointer assigned. The network will be unable to learn.", db.level.fail )
+            self.debug( "No dataFeeder function pointer assigned. The network will be unable to learn.", db.level.fail )
             return
 
         while( gen <= self.teachTimes ):
-            inp = self.inputDataFeeder( gen, self.inputDimensions ) # Use the networks data feeder function pointer to pick random inputs
+            inp = self.dataFeeder( gen, self.inputDimensions ) # Use the networks data feeder function pointer to pick random inputs
             gradient, dErr_bias, dErr_weights, meanErr = func.gradient( self, inp, theta ) # calculate the gradient
 
             # Mutate the weights and biases
