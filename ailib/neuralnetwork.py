@@ -13,11 +13,11 @@ class neural_network:
         self.weights = weights
         self.bias = bias
 
-        # SGD stuff
+        # Learning stuff
         self.teachTimes = 100 # amount of times the network will be thaught
 
-        if( correctFuncPointer ):
-            self.correctFuncPointer = correctFuncPointer
+        self.correctFuncPointer = correctFuncPointer
+        self.dataFeederFuncPointer = dataFeederFuncPointer
 
         self.debug( f"Created neural network {self}", db.level.success )
 
@@ -124,11 +124,11 @@ class neural_network:
         inp = None # input, gets randomized each generation
 
         if( not self.correctFuncPointer ):
-            self.debug( "No correctFunction pointer assigned. The network will be unable to learn.", db.level.fail )
+            self.debug( "No correctFunc pointer assigned. The network will be unable to learn.", db.level.fail )
             return
 
         if( not self.inputDataFeederPointer ):
-            self.debug( "No inputDataFeederFunction pointer assigned. The network will be unable to learn.", db.level.fail )
+            self.debug( "No dataFeederFunc pointer assigned. The network will be unable to learn.", db.level.fail )
             return
 
         while( gen <= self.teachTimes ):
