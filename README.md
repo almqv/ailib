@@ -27,6 +27,7 @@ See `example.py` for a better example.
 	- [x] Prediction
 - [x] Learning
 	- [x] Stochastic gradient descent (SGD)
+	- [x] Support for custom data feeding
 	- [ ] Relative learning rate
 - [ ] Support for networks of (neural) networks
 	- [ ] Input/Output passthrough
