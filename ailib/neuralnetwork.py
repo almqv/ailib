@@ -124,26 +124,25 @@ class neural_network:
             self.bias[layer] -= lr * gradient[layer]["bias"]
 
     def teach_sgd( self, theta:float = 0.001, lr:float = 0.1, showDebug:bool = False ): # Teach the network using stochastic gradient descent
-        gen = 0 # the generation
-        inp = None # input, gets randomized each generation
+        try:
+            gen = 0 # the generation
+            inp = None # input, gets randomized each generation
 
-        if( not self.correctFuncPointer ):
-            self.debug( "No correctFunc function pointer assigned. The network will be unable to learn.", db.level.fail )
-            return
+            while( gen <= self.teachTimes ):
+                inp = self.dataFeeder( gen, self.inputDimensions ) # Use the networks data feeder function pointer to pick random inputs
+                gradient, dErr_bias, dErr_weights, meanErr = func.gradient( self, inp, theta ) # calculate the gradient
 
-        if( not self.inputDataFeederPointer ):
-            self.debug( "No dataFeeder function pointer assigned. The network will be unable to learn.", db.level.fail )
-            return
+                # Mutate the weights and biases
+                self.mutate( gradient, lr )
 
-        while( gen <= self.teachTimes ):
-            inp = self.dataFeeder( gen, self.inputDimensions ) # Use the networks data feeder function pointer to pick random inputs
-            gradient, dErr_bias, dErr_weights, meanErr = func.gradient( self, inp, theta ) # calculate the gradient
+                self.debug( f"Teaching [{gen}/{self.teachTimes}]: Error: {meanErr}", db.level.status, end="\r" )
 
-            # Mutate the weights and biases
-            self.mutate( gradient, lr )
+                gen += 1
 
-            self.debug( f"Teaching [{gen}/{self.teachTimes}]: Error: {meanErr}", db.level.status, end="\r" )
+            self.debug( f"[{self.teachTimes}/{self.teachTimes}] Teaching finished! Error: {meanErr}", db.level.success, end="\r\n" )
 
-            gen += 1
+        except:
+            if( self.correctFuncPointer == None or self.dataFeederFuncPointer == None ):
+                self.debug( "Invalid or unassigned function pointers. Network will not be able to learn.", db.level.fail )
 
-        self.debug( f"[{self.teachTimes}/{self.teachTimes}] Teaching finished! Error: {meanErr}", db.level.success, end="\r\n" )
+            self.debug( f"{sys.exc_info()}", db.level.fail )

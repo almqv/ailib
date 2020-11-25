@@ -15,8 +15,8 @@ def invertRGB(inp:np.array):  # NOTE: This function is used for comparing the pr
     return np.asarray(out) # This function can do whatever you want BUT:
                            # It can only have 1 argument that is the input array!
 
-def randomRGB( gen:int, inpc:int ):
-    return np.asarray( np.random.rand(1, inpc) )[0] # generate a random input for the network
+def randomRGB( gen:int, inpc:int ): # NOTE: This function is used for feeding the network. Keep in mind that what it returns has to fit the input dimensions.
+    return np.asarray( np.random.rand(1, inpc) )[0] # generate a random RGB value for the network
 
 
 test = ai.neural_network( correctFuncPointer = invertRGB, dataFeederFuncPointer = randomRGB ) # Create a new instace for a network
@@ -39,7 +39,7 @@ thinkTest = test.think( testInput) # Make the network think about [1, 1, 1] and 
 # In order for the network to work; we have to teach it.
 
 # Teaching the network:
-test.setTeachTimes( 100000 ) # Teach the network 100000 times
+test.setTeachTimes( 10000 ) # Teach the network 10000 times
 test.teach_sgd(theta=0.001) # Teach the network using stochastic gradient descent (https://en.wikipedia.org/wiki/Stochastic_gradient_descent)
 # The correctFuncPointer is needed here for it to test itself against it.
 
