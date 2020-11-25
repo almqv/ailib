@@ -7,20 +7,17 @@ import ailib.func as func
 
 
 class neural_network:
-    def __init__( self, enableDebug:bool = True, weights:np.matrix = None, bias:np.matrix = None, correctFuncPointer = None ):
+    def __init__( self, enableDebug:bool = True, weights:np.matrix = None, bias:np.matrix = None, correctFuncPointer = None, dataFeederFuncPointer = None ):
         self.enableDebug = enableDebug
 
         self.weights = weights
         self.bias = bias
 
-        # SGD stuff
+        # Learning stuff
         self.teachTimes = 100 # amount of times the network will be thaught
 
-        if( correctFuncPointer ):
-            self.correctFuncPointer = correctFuncPointer
-        else:
-            self.debug( "No correct function pointer. The network will be unable to learn.", db.level.warn )
-
+        self.correctFuncPointer = correctFuncPointer
+        self.dataFeederFuncPointer = dataFeederFuncPointer
 
         self.debug( f"Created neural network {self}", db.level.success )
 
@@ -76,7 +73,6 @@ class neural_network:
     def loadLayers( self, savefile:str ): # TODO: Load weights and biases from files
         self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
 
-
     def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None, showDebug:bool = True, firstInput:np.array = None ):
         try:
             if( layerIndex == 0 and firstInput == None ):
@@ -101,9 +97,14 @@ class neural_network:
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
+    # Wrappers for pointers
     def correctFunc( self, inp:np.array ): # Wrapper for the "correct function".
         return self.correctFuncPointer( np.squeeze(inp) )
 
+    def dataFeeder( self, gen:int, inputDimensions:int ):
+        return self.dataFeederFuncPointer ( gen, inputDimensions )
+
+    # Teaching functions
     def getError( self, inp:np.array, predicted:np.array ):
         try:
             correctOutput = self.correctFunc(inp) # get the correct answer
@@ -123,18 +124,25 @@ class neural_network:
             self.bias[layer] -= lr * gradient[layer]["bias"]
 
     def teach_sgd( self, theta:float = 0.001, lr:float = 0.1, showDebug:bool = False ): # Teach the network using stochastic gradient descent
-        gen = 0 # the generation
-        inp = None # input, gets randomized each generation
+        try:
+            gen = 0 # the generation
+            inp = None # input, gets randomized each generation
 
-        while( gen <= self.teachTimes ):
-            inp = np.asarray(np.random.rand( 1, self.inputDimensions ))[0] # generate a random input for the network
-            gradient, dErr_bias, dErr_weights, meanErr = func.gradient( self, inp, theta ) # calculate the gradient
+            while( gen <= self.teachTimes ):
+                inp = self.dataFeeder( gen, self.inputDimensions ) # Use the networks data feeder function pointer to pick random inputs
+                gradient, dErr_bias, dErr_weights, meanErr = func.gradient( self, inp, theta ) # calculate the gradient
 
-            # Mutate the weights and biases
-            self.mutate( gradient, lr )
+                # Mutate the weights and biases
+                self.mutate( gradient, lr )
 
-            self.debug( f"Teaching [{gen}/{self.teachTimes}]: Error: {meanErr}", db.level.status, end="\r" )
+                self.debug( f"Teaching [{gen}/{self.teachTimes}]: Error: {meanErr}", db.level.status, end="\r" )
 
-            gen += 1
+                gen += 1
 
-        self.debug( f"[{self.teachTimes}/{self.teachTimes}] Teaching finished! Error: {meanErr}", db.level.success, end="\r\n" )
+            self.debug( f"[{self.teachTimes}/{self.teachTimes}] Teaching finished! Error: {meanErr}", db.level.success, end="\r\n" )
+
+        except:
+            if( self.correctFuncPointer == None or self.dataFeederFuncPointer == None ):
+                self.debug( "Invalid or unassigned function pointers. Network will not be able to learn.", db.level.fail )
+
+            self.debug( f"{sys.exc_info()}", db.level.fail )
