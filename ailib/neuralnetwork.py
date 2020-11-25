@@ -123,6 +123,14 @@ class neural_network:
         gen = 0 # the generation
         inp = None # input, gets randomized each generation
 
+        if( not self.correctFuncPointer ):
+            self.debug( "No correctFunction pointer assigned. The network will be unable to learn.", db.level.fail )
+            return
+
+        if( not self.inputDataFeederPointer ):
+            self.debug( "No inputDataFeederFunction pointer assigned. The network will be unable to learn.", db.level.fail )
+            return
+
         while( gen <= self.teachTimes ):
             inp = self.inputDataFeeder( gen, self.inputDimensions ) # Use the networks data feeder function pointer to pick random inputs
             gradient, dErr_bias, dErr_weights, meanErr = func.gradient( self, inp, theta ) # calculate the gradient
