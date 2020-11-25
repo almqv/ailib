@@ -15,6 +15,9 @@ def invertRGB(inp:np.array):  # NOTE: This function is used for comparing the pr
     return np.asarray(out) # This function can do whatever you want BUT:
                            # It can only have 1 argument that is the input array!
 
+def randomRGB( gen:int, inpc:int ):
+    return np.asarray( np.random.rand(1, inpc) )[0] # generate a random input for the network
+
 test = ai.neural_network( correctFuncPointer = invertRGB ) # Create a new instace for a network
 # correctFuncPointer must be assigned to a function otherwise you will not be able to teach the network.
 
