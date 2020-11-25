@@ -18,7 +18,8 @@ def invertRGB(inp:np.array):  # NOTE: This function is used for comparing the pr
 def randomRGB( gen:int, inpc:int ):
     return np.asarray( np.random.rand(1, inpc) )[0] # generate a random input for the network
 
-test = ai.neural_network( correctFuncPointer = invertRGB ) # Create a new instace for a network
+
+test = ai.neural_network( correctFuncPointer = invertRGB, dataFeederFuncPointer = randomRGB ) # Create a new instace for a network
 # correctFuncPointer must be assigned to a function otherwise you will not be able to teach the network.
 
 test.generateLayers( [3, 3, 3] ) # Generate the networks layers
