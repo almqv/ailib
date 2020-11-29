@@ -18,6 +18,11 @@ my_neural_network.think( [0.2] ) # Make the AI "think" about "0.2" and it will g
 ```
 See `example.py` for a better example.
 
+
+## ailibc
+This is a experimental port to C. It does not work.
+
+
 ## Features
 (Checked boxes are implemented features and unchecked has not been implemented yet.)
 
