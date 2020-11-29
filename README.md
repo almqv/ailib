@@ -1,4 +1,4 @@
-# AIlib (VERY WIP)
+# AIlib C Port (SUPER MEGA WIP)
 This is a lightweight AI library that works as a wrapper. 
 
 ## Installation
