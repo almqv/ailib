@@ -29,13 +29,13 @@ class neural_network:
     def setTeachTimes( self, teachTimes:int ):
         self.teachTimes = teachTimes
 
-    def generateLayers( self, neuronDimensions:list = [ 1, 1 ], offset:float = -0.25 ):
+    def generateLayers( self, neuronDimensions:list = [ 1, 1 ], weightMin:float = 0.0, weightMax:float = 1.0, biasMin:float = -2.0, biasMax:float = 2.0 ):
         # The neuronDimensions are the dimensions of the neurons. Each index is a layer and that
         # indices value is the amount of neurons in that layer.
         #
         # The offset is what is added to each weight/bias when randomizing them
 
-        try:
+        #try:
             self.neuronDimensions = neuronDimensions
             self.inputDimensions = self.neuronDimensions[0]
             self.outputDimensions = self.neuronDimensions[-1]
@@ -50,7 +50,7 @@ class neural_network:
 
             for index, neuronCount in enumerate(neuronDimensions): # Iterate through each layer and append the weights
                 if( index > 0 ):
-                    self.weights[index - 1] = np.random.rand( neuronDimensions[index-1], neuronCount ) + offset
+                    self.weights[index - 1] = np.random.default_rng().uniform( weightMin, weightMax, [neuronDimensions[index-1], neuronCount] )
 
             self.debug( f"Generated weights matrix: {self.weights}", db.level.success, indent=1 )
 
@@ -61,14 +61,14 @@ class neural_network:
 
             for index, neuronCount in enumerate(neuronDimensions):
                 if(index > 0):
-                    self.bias[index - 1] = np.random.rand( 1, neuronCount ) + offset
+                    self.bias[index - 1] = np.random.default_rng().uniform( biasMin, biasMax, [1, neuronCount] )
 
             self.debug( f"Generated bias matrix: {self.bias}", db.level.success, indent=1 )
 
             self.maxLayerIndex = len(self.weights) # Used when recursivley thinking
 
-        except:
-            self.debug( f"{sys.exc_info()}", db.level.fail )
+        #except:
+            #self.debug( f"{sys.exc_info()}", db.level.fail )
 
     def loadLayers( self, savefile:str ): # TODO: Load weights and biases from files
         self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
