@@ -35,7 +35,7 @@ class neural_network:
         #
         # The offset is what is added to each weight/bias when randomizing them
 
-        #try:
+        try:
             self.neuronDimensions = neuronDimensions
             self.inputDimensions = self.neuronDimensions[0]
             self.outputDimensions = self.neuronDimensions[-1]
@@ -67,8 +67,8 @@ class neural_network:
 
             self.maxLayerIndex = len(self.weights) # Used when recursivley thinking
 
-        #except:
-            #self.debug( f"{sys.exc_info()}", db.level.fail )
+        except:
+            self.debug( f"{sys.exc_info()}", db.level.fail )
 
     def loadLayers( self, savefile:str ): # TODO: Load weights and biases from files
         self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
