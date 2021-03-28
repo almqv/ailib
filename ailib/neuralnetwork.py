@@ -4,6 +4,7 @@ from copy import deepcopy as copy
 
 import ailib.debug as db
 import ailib.func as func
+import ailib.save as save
 
 
 class neural_network:
@@ -70,11 +71,10 @@ class neural_network:
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
-    def loadLayers( self, savefile:str ): # TODO: Load weights and biases from files
-        self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
+    def save( self, savefile:str ):
+        self.debug(f"Saving neural network to file '{savefile}'.")
+        save.save_network(self, savefile)
 
-    def saveLayers( self, savefile:str ):
-        self.debug("NYI")
 
     def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None, showDebug:bool = True, firstInput:np.array = None ):
         try:

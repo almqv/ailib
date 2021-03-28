@@ -44,3 +44,5 @@ test.teachSGD(theta=0.001, lr=1) # Teach the network using stochastic gradient d
 # The correctFuncPointer is needed here for it to test itself against it.
 
 teachThinkTest = test.think( testInput ) # test the network again and see what result it got
+
+test.save("mynet.obj")
