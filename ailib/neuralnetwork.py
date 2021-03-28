@@ -73,6 +73,9 @@ class neural_network:
     def loadLayers( self, savefile:str ): # TODO: Load weights and biases from files
         self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
 
+    def saveLayers( self, savefile:str ):
+        self.debug("NYI")
+
     def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None, showDebug:bool = True, firstInput:np.array = None ):
         try:
             if( layerIndex == 0 and firstInput == None ):
