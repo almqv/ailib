@@ -123,7 +123,7 @@ class neural_network:
             self.weights[layer] -= lr * gradient[layer]["weight"] # mutate the weights
             self.bias[layer] -= lr * gradient[layer]["bias"]
 
-    def teach_sgd( self, theta:float = 0.001, lr:float = 0.1 ): # Teach the network using stochastic gradient descent
+    def teachSGD( self, theta:float = 0.001, lr:float = 0.1 ): # Teach the network using stochastic gradient descent
         try:
             gen = 0 # the generation
             inp = None # input, gets randomized each generation
