@@ -75,6 +75,10 @@ class neural_network:
         self.debug(f"Saving neural network to file '{savefile}'.")
         save.save_network(self, savefile)
 
+    def load( self, savefile:str ):
+        self.debug(f"Loading neural network from file '{savefile}'.")
+        self = save.load_network(self, savefile)
+
 
     def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None, showDebug:bool = True, firstInput:np.array = None ):
         try:
