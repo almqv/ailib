@@ -4,6 +4,7 @@ from copy import deepcopy as copy
 
 import ailib.debug as db
 import ailib.func as func
+import ailib.save as save
 
 
 class neural_network:
@@ -70,8 +71,14 @@ class neural_network:
         except:
             self.debug( f"{sys.exc_info()}", db.level.fail )
 
-    def loadLayers( self, savefile:str ): # TODO: Load weights and biases from files
-        self.debug( "loadLayers: Feature is not implimented yet!", db.level.fail )
+    def save( self, savefile:str ):
+        self.debug(f"Saving neural network to file '{savefile}'.")
+        save.save_network(self, savefile)
+
+    def load( self, savefile:str ):
+        self.debug(f"Loading neural network from file '{savefile}'.")
+        self = save.load_network(self, savefile)
+
 
     def think( self, inp:np.array, layerIndex:int = 0, maxPropLayer:int = None, showDebug:bool = True, firstInput:np.array = None ):
         try:
@@ -123,7 +130,7 @@ class neural_network:
             self.weights[layer] -= lr * gradient[layer]["weight"] # mutate the weights
             self.bias[layer] -= lr * gradient[layer]["bias"]
 
-    def teach_sgd( self, theta:float = 0.001, lr:float = 0.1, showDebug:bool = False ): # Teach the network using stochastic gradient descent
+    def teachSGD( self, theta:float = 0.001, lr:float = 0.1 ): # Teach the network using stochastic gradient descent
         try:
             gen = 0 # the generation
             inp = None # input, gets randomized each generation

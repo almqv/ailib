@@ -31,7 +31,7 @@ See `example.py` for a better example.
 	- [ ] Relative learning rate
 - [ ] Support for networks of (neural) networks
 	- [ ] Input/Output passthrough
-- [ ] Support for loading trained networks
+- [x] Support for loading trained networks
 
 #### Other planned features
 - [x] Cool debug colors
