@@ -1,4 +1,4 @@
-# AIlib (VERY WIP)
+# AIlib
 This is a lightweight AI library that works as a wrapper. 
 
 ## Installation
@@ -27,10 +27,11 @@ See `example.py` for a better example.
 	- [x] Prediction
 - [x] Learning
 	- [x] Stochastic gradient descent (SGD)
+	- [x] Support for custom data feeding
 	- [ ] Relative learning rate
 - [ ] Support for networks of (neural) networks
 	- [ ] Input/Output passthrough
-- [ ] Support for loading trained networks
+- [x] Support for loading trained networks
 
 #### Other planned features
 - [x] Cool debug colors
