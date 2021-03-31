@@ -68,8 +68,9 @@ class neural_network:
 
             self.maxLayerIndex = len(self.weights) # Used when recursivley thinking
 
-        except:
-            self.debug( f"{sys.exc_info()}", db.level.fail )
+        except Exception as err:
+            self.debug( f"{err}", db.level.fail )
+            raise err
 
     def save( self, savefile:str ):
         self.debug(f"Saving neural network to file '{savefile}'.")
@@ -101,8 +102,9 @@ class neural_network:
 
                 return np.squeeze(outputLayer)
 
-        except:
-            self.debug( f"{sys.exc_info()}", db.level.fail )
+        except Exception as err:
+            self.debug( f"{err}", db.level.fail )
+            raise err
 
     # Wrappers for pointers
     def correctFunc( self, inp:np.array ): # Wrapper for the "correct function".
@@ -122,8 +124,9 @@ class neural_network:
 
             return errSum / self.outputDimensions
 
-        except:
-            self.debug( f"{sys.exc_info()}", db.level.fail )
+        except Exception as err:
+            self.debug( f"{err}", db.level.fail )
+            raise err
 
     def mutate( self, gradient:list, lr:float ):
         for layer in range(self.maxLayerIndex):
@@ -148,8 +151,9 @@ class neural_network:
 
             self.debug( f"[{self.teachTimes}/{self.teachTimes}] Teaching finished! Error: {meanErr}", db.level.success, end="\r\n" )
 
-        except:
+        except Exception as err:
             if( self.correctFuncPointer == None or self.dataFeederFuncPointer == None ):
                 self.debug( "Invalid or unassigned function pointers. Network will not be able to learn.", db.level.fail )
 
-            self.debug( f"{sys.exc_info()}", db.level.fail )
+            self.debug( f"{err}", db.level.fail )
+            raise err
