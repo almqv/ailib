@@ -1,5 +1,5 @@
 # AIlib
-This is a lightweight AI library that works as a wrapper. 
+A simple ConvNet (with SGD) library.
 
 ## Installation
  1. `git clone https://github.com/E-Almqvist/ailib.git`
