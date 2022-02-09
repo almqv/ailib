@@ -38,7 +38,7 @@ testInput = [1.0, 1.0, 1.0]
 thinkTest = test.think(testInput) # Make the network think about [1, 1, 1] and then assign the output to "thinkTest"
 # The actual output should be [0, 0, 0] but we will get something far away from that.
 # In order for the network to work; we have to teach it.
-teachtimes = int(input("Teach times: "))
+teachtimes = int(input("SGD teach times: "))
 
 # Teaching the network:
 test.setTeachTimes( teachtimes ) # Teach the network 10000 times
