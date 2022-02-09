@@ -30,6 +30,7 @@ test.generateLayers( [3, 3, 3] ) # Generate the networks layers
 #   I   N   O
 #   I   N   O
 
+input()
 
 # Using the network:
 testInput = [1.0, 1.0, 1.0]
@@ -37,13 +38,14 @@ testInput = [1.0, 1.0, 1.0]
 thinkTest = test.think(testInput) # Make the network think about [1, 1, 1] and then assign the output to "thinkTest"
 # The actual output should be [0, 0, 0] but we will get something far away from that.
 # In order for the network to work; we have to teach it.
+teachtimes = int(input("Teach times: "))
 
 # Teaching the network:
-test.setTeachTimes( 10000 ) # Teach the network 10000 times
+test.setTeachTimes( teachtimes ) # Teach the network 10000 times
 test.teachSGD(theta=0.001, lr=1) # Teach the network using stochastic gradient descent (https://en.wikipedia.org/wiki/Stochastic_gradient_descent)
 # The correctFuncPointer is needed here for it to test itself against it.
 
 teachThinkTest = test.think( testInput ) # test the network again and see what result it got
 
-test.save("mynet.obj") # save the network
-test.load("mynet.obj") # load the network (which is not needed since we just trained the same data)
+# test.save("mynet.obj") # save the network
+# test.load("mynet.obj") # load the network (which is not needed since we just trained the same data)
